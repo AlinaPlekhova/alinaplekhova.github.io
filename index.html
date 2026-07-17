@@ -307,6 +307,8 @@
     transition: transform .15s ease, box-shadow .15s ease;
     background: var(--color-bg);
   }
+  .project-card,
+  .project-card * { text-decoration: none; }
   .project-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(0,0,0,.08);
@@ -327,6 +329,8 @@
     line-height: 1.15;
   }
   .project-cover.light { background: var(--color-card-bg); color: #c9c9c4; }
+  .project-cover:has(img) { padding: 0; }
+  .project-cover img { width: 100%; height: 100%; object-fit: cover; }
   .project-cover.dark  {
     background: #14161c;
     color: #f2f2f2;
@@ -411,8 +415,8 @@
     <div class="projects-grid">
 
       <!-- ЗАМЕНИ href на ссылку на кейс, а .project-cover — на <img> -->
-     <a class="project-card" href="urbanpassindex.html">
-        <div class="urban-project-card.png">Smart urban parking</div>
+      <a class="project-card" href="urbanpass.html">
+        <div class="project-cover"><img src="urban-project-card.png" alt="UrbanPass — smart urban parking"></div>
         <div class="project-meta">
           <h3>UrbanPass — smart urban parking</h3>
           <p>Phygital B2B ecosystem across kiosk, mobile, and web: reservation flows, payments, EV charging.</p>
@@ -424,7 +428,7 @@
         </div>
       </a>
 
-      <a class="project-card" href="#">
+      <a class="project-card" href="hypernova.html">
         <div class="project-cover dark">Platform and tokens</div>
         <div class="project-meta">
           <h3>Hypernova — AI-native design system migration</h3>
