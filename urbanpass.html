@@ -35,7 +35,7 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
 
   /* ---------- SITE HEADER ---------- */
-  .site-header{position:sticky;top:0;z-index:100;background:rgba(43,54,57,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(43,54,57,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
   .site-header__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   .site-header .brand{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
   .site-nav{display:flex;align-items:center;gap:10px}
@@ -74,7 +74,7 @@
   }
   .hero__phone{
     position:absolute;left:50%;bottom:0;transform:translateX(-50%);
-    width:clamp(300px,34vw,470px);z-index:2;
+    width:clamp(256px,30vw,432px);z-index:2;
   }
   .hero__meta{
     position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:4;
@@ -96,13 +96,11 @@
 
   /* device frame — просто плейсхолдер под изображение того же размера */
   .device{
-    background:var(--card);
     overflow:hidden;
     position:relative;
-    aspect-ratio:5/6;
   }
   .device--full{aspect-ratio:auto}
-  .device img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .device img{width:100%;height:auto;display:block;object-fit:contain}
 
   /* ---------- ABOUT ---------- */
   .about{padding:clamp(80px,12vh,150px) 0 clamp(60px,8vh,110px)}
@@ -135,12 +133,11 @@
   .card{
     border-radius:var(--radius);
     overflow:hidden;
-    background:var(--card);
     position:relative;
     display:grid;place-items:center;
     color:#a9b1af;font-size:14px;font-weight:500;
   }
-  .card img{width:100%;height:100%;object-fit:cover;display:block}
+  .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
   /* карточка 1: левый верх — квадрат */
   .card--logo{
@@ -156,7 +153,7 @@
   .card--lg{
     grid-column:2;grid-row:1 / span 2;
     align-self:stretch;
-    height:100%;
+    min-height:0;
   }
 
   /* ---------- PROBLEM DEFINITION (светлая секция) ---------- */
@@ -205,7 +202,7 @@
   .pblock__body strong{font-weight:600;color:#2b3639}
   /* карточка под изображение worksheet/board */
   .pcard{
-    background:#e9ecec;border-radius:18px;overflow:hidden;
+    border-radius:18px;overflow:hidden;
     aspect-ratio:16/11;display:grid;place-items:center;
     color:#9aa2a0;font-size:14px;font-weight:500;
     position:sticky;top:24px;
@@ -231,7 +228,7 @@
   /* плейсхолдер под изображение диаграммы */
   .flow__img{
     margin-top:clamp(60px,10vh,110px);
-    border-radius:16px;background:#222c2f;
+    border-radius:16px;
     min-height:clamp(300px,42vh,520px);
     display:grid;place-items:center;
     color:#6f807f;font-size:14px;font-weight:500;text-align:center;padding:24px;
@@ -258,23 +255,10 @@
     grid-column:2;
     color:#c3ccca;font-weight:400;font-size:18px;line-height:1.7;
   }
-  /* метрики */
-  .wires__stats{
-    display:flex;gap:clamp(40px,6vw,90px);
-    margin-top:clamp(40px,7vh,80px);
-  }
-  .stat .num{
-    font-weight:600;font-size:clamp(40px,5vw,64px);line-height:1;
-    color:#e6ebe9;
-  }
-  .stat .lbl{
-    font-weight:400;font-size:18px;color:var(--muted);margin-top:8px;
-  }
   /* область под изображение вайрфреймов */
   .wires__canvas{
     margin-top:clamp(20px,3vh,40px);
     border-radius:20px;
-    background:#222c2f;
     min-height:clamp(360px,60vh,760px);
     display:grid;place-items:center;
     color:#6f807f;font-size:14px;font-weight:500;
@@ -305,6 +289,8 @@
     margin-top:clamp(50px,8vh,90px);
   }
   .ds__row--single{grid-template-columns:1fr}
+  .ds__row--tight{align-items:start;margin-top:0}
+  .ds__row--tight .ds__block{align-items:start}
 
   /* typography */
   .ds__type{
@@ -315,7 +301,7 @@
 
   /* icons — плейсхолдер под изображение */
   .ds__icons{
-    border-radius:16px;background:#222c2f;min-height:220px;
+    border-radius:16px;min-height:220px;
     display:grid;place-items:center;color:#6f807f;font-size:14px;font-weight:500;
     overflow:hidden;
   }
@@ -328,18 +314,19 @@
 
   /* блоки-плейсхолдеры под изображения компонентов */
   .ds__block{
-    border-radius:16px;background:#222c2f;
+    border-radius:16px;
     min-height:clamp(160px,22vh,240px);
     display:grid;place-items:center;color:#6f807f;font-size:14px;font-weight:500;
     overflow:hidden;
   }
   .ds__block img{width:100%;height:auto;display:block}
+  .ds__block--flat{border-radius:0}
 
   /* ---------- SOLUTION (телефон + фичи) ---------- */
   .solution{
     position:relative;
     /* тёмный сверху → светлый снизу, переход примерно на 62% */
-    background:linear-gradient(to bottom,#2b3639 0%,#2b3639 62%,#eef0ef 62%,#eef0ef 100%);
+    background:linear-gradient(to bottom,#2b3639 0%,#2b3639 62%,#f2f4f3 62%,#f2f4f3 100%);
     padding:clamp(70px,10vh,120px) 0 clamp(80px,12vh,150px);
     overflow:hidden;
   }
@@ -350,19 +337,19 @@
   .sol-eyebrow{
     color:var(--green);font-weight:400;font-size:24px;
     text-align:center;
-    margin-bottom:clamp(40px,7vh,70px);
+    margin-bottom:clamp(20px,3vh,32px);
   }
   /* сцена с телефоном */
   .solution__stage{
     position:relative;
     margin-top:clamp(40px,7vh,70px);
-    min-height:clamp(520px,72vh,820px);
+    min-height:clamp(720px,96vh,1080px);
     display:flex;justify-content:center;
   }
   /* телефон = один PNG (мокап под углом) */
   .solution__phone{
     position:relative;z-index:2;
-    width:clamp(280px,32vw,440px);
+    width:clamp(504px,58vw,816px);
     align-self:center;
   }
   .solution__phone img{width:100%;height:auto;display:block}
@@ -411,7 +398,7 @@
   .sfeat--right .sfeat__grid{grid-template-columns:1.15fr 0.85fr}
   .sfeat--right .sfeat__text{order:2}
   .sfeat--right .sfeat__media{order:1}
-  .sfeat__eyebrow{color:var(--green);font-weight:400;font-size:24px;margin-bottom:clamp(24px,4vh,44px)}
+  .sfeat__eyebrow{color:var(--green);font-weight:400;font-size:24px;margin-bottom:clamp(12px,2vh,20px)}
   .sfeat__title{font-weight:600;font-size:24px;margin-bottom:14px;letter-spacing:-.01em}
   .sfeat__body{font-weight:400;font-size:24px;line-height:1.4}
   .sfeat--dark .sfeat__body{color:#c3ccca}
@@ -423,7 +410,7 @@
      Мобил: фон прячется, .sphone показываются столбиком. */
   .sfeat__media{
     position:relative;
-    min-height:clamp(420px,56vh,660px);
+    min-height:clamp(672px,89vh,1056px);
     background-image:var(--group,none);
     background-repeat:no-repeat;
     background-position:center;
@@ -523,7 +510,7 @@
     .feat{position:static;max-width:100%}
     .feat--tr,.feat--bl,.feat--br{color:#2b3639}
     .feat--tr h4{color:#2b3639}.feat--tr p{color:#5b6664}
-    .solution{background:linear-gradient(to bottom,#2b3639 0%,#2b3639 40%,#eef0ef 40%,#eef0ef 100%)}
+    .solution{background:linear-gradient(to bottom,#2b3639 0%,#2b3639 40%,#f2f4f3 40%,#f2f4f3 100%)}
     .sfeat__grid{grid-template-columns:1fr;gap:32px}
     .sfeat--right .sfeat__text{order:1}
     .sfeat--right .sfeat__media{order:2}
@@ -547,7 +534,7 @@
 <!-- ===================== SITE HEADER ===================== -->
 <div class="site-header">
   <div class="site-header__inner">
-    <a class="brand" href="index.html">Alina Plekhova Portfolio</a>
+    <a class="brand" href="../index.html">Alina Plekhova Portfolio</a>
     <nav class="site-nav" aria-label="Primary">
       <div class="dropdown" id="projDropdown">
         <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
@@ -556,8 +543,8 @@
         </button>
         <div class="dropdown-menu" role="menu">
           <a href="urbanpass.html" role="menuitem">UrbanPass<span class="sub">Smart urban parking</span></a>
-          <a href="hypernova.html" role="menuitem">Hypernova<span class="sub">AI-native design system migration</span></a>
-          <a href="index.html#projects" role="menuitem">All projects →</a>
+          <a href="../hypernova.html" role="menuitem">Hypernova<span class="sub">AI-native design system migration</span></a>
+          <a href="../index.html#projects" role="menuitem">All projects →</a>
         </div>
       </div>
     </nav>
@@ -573,8 +560,7 @@
 
   <div class="hero__phone">
     <div class="device">
-      <!-- 👇 ВСТАВЬ СВОЁ ИЗОБРАЖЕНИЕ ЗДЕСЬ: замени src на свой файл, напр. images/hero-screen.png -->
-      <img src="screen-hero.svg" alt="UrbanPass parking timer screen">
+      <img src="hero-phone.png" alt="UrbanPass parking timer screen">
     </div>
   </div>
 
@@ -610,19 +596,16 @@
   </p>
 
   <div class="gallery">
-    <!-- Карточка 1 — левый верх. Вставь своё: <img src="card-1.png" alt=""> -->
     <div class="card card--logo reveal">
-      Card 1 — 1:1
+      <img src="card-1.png" alt="">
     </div>
 
-    <!-- Карточка 2 — левый низ. Вставь своё: <img src="card-2.png" alt=""> -->
     <div class="card card--sm reveal">
-      Card 2 — 1:1
+      <img src="card-2.png" alt="">
     </div>
 
-    <!-- Карточка 3 — большая правая. Вставь своё: <img src="card-3.png" alt=""> -->
     <div class="card card--lg reveal">
-      Card 3 — вертикальная
+      <img src="card-3.png" alt="">
     </div>
   </div>
   </div>
@@ -653,8 +636,7 @@
           </ul>
         </div>
       </div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ: <img src="insights.png" alt=""> -->
-      <div class="pcard">Image — key use cases table</div>
+      <div class="pcard"><img src="insights.png" alt="Key use cases table"></div>
     </div>
 
     <!-- Блок 2 — problem statement worksheet -->
@@ -671,8 +653,7 @@
           </ul>
         </div>
       </div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ: <img src="worksheet.png" alt=""> -->
-      <div class="pcard">Image — problem statement board</div>
+      <div class="pcard"><img src="worksheet.png" alt="Problem statement board"></div>
     </div>
 
     <!-- Блок 3 — brainstorming & user flow mapping -->
@@ -689,8 +670,7 @@
           </ul>
         </div>
       </div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ: <img src="flowmap.png" alt=""> -->
-      <div class="pcard">Image — user flow map</div>
+      <div class="pcard"><img src="flowmap.png" alt="User flow map"></div>
     </div>
 
     <p class="problem__goal reveal"><em>The goal</em> was to make the EV experience app-first and effortless</p>
@@ -706,8 +686,7 @@
     I mapped <em>system responses</em> as carefully as user actions — bay lock/unlock, camera triggers, API calls, timeouts. A slow camera or a dropped API call shouldn't break the experience, so every step got a fallback and an error state.
   </h2>
 
-  <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ДИАГРАММЫ: <img src="flow-diagram.png" alt="User flow with system states"> -->
-  <div class="flow__img reveal">Image — user flow with system states</div>
+  <div class="flow__img reveal"><img src="flow-diagram.png" alt="User flow with system states"></div>
 
   <p class="flow__foot reveal">
     This is the layer most reservation flows skip, and it's where the product either holds up in the real world or falls apart.
@@ -726,19 +705,7 @@
     </p>
   </div>
 
-  <div class="wires__stats reveal">
-    <div class="stat">
-      <div class="num">20+</div>
-      <div class="lbl">screens</div>
-    </div>
-    <div class="stat">
-      <div class="num">40+</div>
-      <div class="lbl">different states</div>
-    </div>
-  </div>
-
-  <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ВАЙРФРЕЙМОВ: <img src="wireframes.png" alt=""> -->
-  <div class="wires__canvas reveal">Image — wireframe screens layout</div>
+  <div class="wires__canvas reveal"><img src="wireframes.png" alt="Wireframe screens layout"></div>
 
   <div class="wires__foot">
     <p class="reveal">
@@ -762,8 +729,7 @@
     </div>
     <div>
       <div class="ds__sub">/ icons</div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ИКОНОК: <img src="ds-icons.png" alt=""> -->
-      <div class="ds__icons">Image — icon set (EV connectors + UI)</div>
+      <div class="ds__icons"><img src="ds-icons.png" alt="Icon set (EV connectors + UI)"></div>
     </div>
   </div>
 
@@ -800,24 +766,16 @@
   <div class="ds__row ds__row--single reveal">
     <div class="ds__sub">/ components</div>
 
-    <!-- inputs / dropdowns — плейсхолдер -->
-    <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ИНПУТОВ: <img src="ds-inputs.png" alt=""> -->
-    <div class="ds__block">Image — inputs, dropdowns &amp; error states</div>
+    <div class="ds__block ds__block--flat"><img src="ds-inputs.png" alt="Inputs, dropdowns & error states"></div>
 
-    <!-- кнопки + поиск -->
-    <div class="ds__row reveal" style="margin-top:clamp(30px,5vh,50px)">
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ КНОПОК: <img src="ds-buttons.png" alt=""> -->
-      <div class="ds__block">Image — button states</div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ПОИСКА: <img src="ds-search.png" alt=""> -->
-      <div class="ds__block">Image — search fields</div>
+    <div class="ds__row ds__row--tight reveal">
+      <div class="ds__block ds__block--flat"><img src="ds-buttons.png" alt="Button states"></div>
+      <div class="ds__block ds__block--flat"><img src="ds-search.png" alt="Search fields"></div>
     </div>
 
-    <!-- тосты + контролы -->
-    <div class="ds__row reveal" style="margin-top:clamp(30px,5vh,50px)">
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ ТОСТОВ: <img src="ds-toasts.png" alt=""> -->
-      <div class="ds__block">Image — toast notifications</div>
-      <!-- 👇 ВСТАВЬ ИЗОБРАЖЕНИЕ КОНТРОЛОВ: <img src="ds-controls.png" alt=""> -->
-      <div class="ds__block">Image — toggles, radios, checkboxes &amp; charger cards</div>
+    <div class="ds__row ds__row--tight reveal">
+      <div class="ds__block ds__block--flat"><img src="ds-toasts.png" alt="Toast notifications"></div>
+      <div class="ds__block ds__block--flat"><img src="ds-controls.png" alt="Toggles, radios, checkboxes & charger cards"></div>
     </div>
   </div>
   </div>
@@ -837,9 +795,8 @@
          на <div class="solution__stage"> выше и стиль style="--phone-bg:url('images/solution-phone.png')" -->
     <div class="solution__stage">
 
-      <!-- 👇 ВАРИАНТ А: <div class="solution__phone reveal"><img src="solution-phone.png" alt="UrbanPass profile hub"></div> -->
       <div class="solution__phone reveal">
-        <div class="ph">Phone mockup (angled) — solution-phone.png</div>
+        <img src="solution-phone.png" alt="UrbanPass profile hub">
       </div>
 
       <!-- фича 1: справа вверху -->
@@ -875,7 +832,7 @@
       <!-- ДЕСКТОП: группа = фон. Укажи файл коллажа в --group.
            МОБИЛ: показываются отдельные скрины ниже. -->
       <div class="sfeat__media scene-res reveal"
-           style="--group:url('images/sol-reservations.png')">
+           style="--group:url('sol-reservations.png')">
         <div class="sfeat__phones">
           <div class="sphone"><div class="ph">res-1.png</div></div>
           <div class="sphone"><div class="ph">res-2.png</div></div>
@@ -893,7 +850,7 @@
   <div class="wrap">
     <div class="sfeat__grid">
       <div class="sfeat__media scene-pay reveal"
-           style="--group:url('images/sol-payments.png')">
+           style="--group:url('sol-payments.png')">
         <div class="sfeat__phones">
           <div class="sphone"><div class="ph">pay-1.png</div></div>
           <div class="sphone"><div class="ph">pay-2.png</div></div>
@@ -913,7 +870,7 @@
   <div class="wrap">
     <div class="sfeat__grid">
       <div class="sfeat__media scene-occ reveal"
-           style="--group:url('images/sol-occupancy.png')">
+           style="--group:url('sol-occupancy.png')">
         <div class="sfeat__phones">
           <div class="sphone"><div class="ph">occ-1.png</div></div>
           <div class="sphone"><div class="ph">occ-2.png</div></div>
