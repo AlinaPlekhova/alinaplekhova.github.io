@@ -485,25 +485,27 @@
     .hero__side{position:static;text-align:right;margin-top:20px;font-size:24px}
     .hero{min-height:auto;padding-bottom:0}
     .hero__phone{position:relative;left:auto;transform:none;margin:30px auto 0;display:block}
-    /* meta в столбик по левому краю, по margin */
+    /* meta в одну строку по центру */
     .hero__meta{position:static;transform:none;margin:24px auto 0;padding:0 var(--gutter);
-      flex-direction:column;align-items:flex-start;gap:6px;font-size:18px;max-width:100%}
-    .hero__meta > div{text-align:left !important}
+      flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:baseline;
+      gap:14px;font-size:13px;max-width:100%}
+    .hero__meta > div{text-align:center !important}
     .hero__ghost{position:relative;top:auto;font-size:clamp(56px,16vw,120px)}
-    .about__lead{width:100%}
+    .about__lead{width:100%;font-size:26px}
     /* две левые карточки — горизонтально в ряд */
     .gallery{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px}
     .card--logo{grid-column:1;grid-row:1;aspect-ratio:1/1}
     .card--sm{grid-column:2;grid-row:1;aspect-ratio:1/1}
     /* Card 3 снизу — на всю ширину обеих карточек */
     .card--lg{grid-column:1 / span 2;grid-row:2;aspect-ratio:auto;height:auto;min-height:200px}
-    .problem__title,.problem__intro{max-width:100%}
+    .problem__title{max-width:100%;font-size:26px}
+    .problem__intro{max-width:100%;font-size:17px;text-align:justify}
     .pblock{grid-template-columns:1fr;gap:clamp(20px,4vh,32px)}
     .pcard{position:static;top:auto}
-    .flow__lead{width:100%}
+    .flow__lead{width:100%;font-size:26px}
     .flow__foot{width:100%}
-    .wires__intro{grid-column:1}
-    .wires__foot p{grid-column:1}
+    .wires__intro{grid-column:1;text-align:justify}
+    .wires__foot p{grid-column:1;text-align:justify}
     .ds__row{grid-template-columns:1fr}
     .solution__title{width:100%}
     .solution__stage{flex-direction:column;align-items:center;gap:32px;min-height:auto}
@@ -511,7 +513,7 @@
     .feat--tr,.feat--bl,.feat--br{color:#2b3639}
     .feat--tr h4{color:#2b3639}.feat--tr p{color:#5b6664}
     .solution{background:linear-gradient(to bottom,#2b3639 0%,#2b3639 40%,#f2f4f3 40%,#f2f4f3 100%)}
-    .sfeat__grid{grid-template-columns:1fr;gap:32px}
+    .sfeat__grid,.sfeat--right .sfeat__grid{grid-template-columns:1fr;gap:32px}
     .sfeat--right .sfeat__text{order:1}
     .sfeat--right .sfeat__media{order:2}
     .sfeat__closing{width:100%;font-size:24px}
@@ -543,7 +545,7 @@
         </button>
         <div class="dropdown-menu" role="menu">
           <a href="urbanpass.html" role="menuitem">UrbanPass<span class="sub">Smart urban parking</span></a>
-          <a href="../hypernova.html" role="menuitem">Hypernova<span class="sub">AI-native design system migration</span></a>
+          <a href="../agentic-audit.html" role="menuitem">Agentic Design-System Audit<span class="sub">AI-native design system migration</span></a>
           <a href="../index.html#projects" role="menuitem">All projects →</a>
         </div>
       </div>
@@ -834,11 +836,11 @@
       <div class="sfeat__media scene-res reveal"
            style="--group:url('sol-reservations.png')">
         <div class="sfeat__phones">
-          <div class="sphone"><div class="ph">res-1.png</div></div>
-          <div class="sphone"><div class="ph">res-2.png</div></div>
-          <div class="sphone"><div class="ph">res-3.png</div></div>
-          <div class="sphone"><div class="ph">res-4.png</div></div>
-          <div class="sphone"><div class="ph">res-5.png</div></div>
+          <div class="sphone"><img src="res-1.png" alt="Reservation screen: space type and vehicle selection"></div>
+          <div class="sphone"><img src="res-2.png" alt="Specify parking features: general, extra-large, disabled, K-car spaces"></div>
+          <div class="sphone"><img src="res-3.png" alt="Reservation screen: EV charging space type selected"></div>
+          <div class="sphone"><img src="res-4.png" alt="Choose vehicle screen with saved vehicles"></div>
+          <div class="sphone"><img src="res-5.png" alt="Add vehicle plate screen"></div>
         </div>
       </div>
     </div>
@@ -852,9 +854,9 @@
       <div class="sfeat__media scene-pay reveal"
            style="--group:url('sol-payments.png')">
         <div class="sfeat__phones">
-          <div class="sphone"><div class="ph">pay-1.png</div></div>
-          <div class="sphone"><div class="ph">pay-2.png</div></div>
-          <div class="sphone"><div class="ph">pay-3.png</div></div>
+          <div class="sphone"><img src="pay-1.png" alt="Profile screen with wallet and auto-payment settings"></div>
+          <div class="sphone"><img src="pay-2.png" alt="Bind payment screen for EV charging"></div>
+          <div class="sphone"><img src="pay-3.png" alt="Review and confirm payment, with success and error toasts"></div>
         </div>
       </div>
       <div class="sfeat__text reveal">
@@ -872,9 +874,9 @@
       <div class="sfeat__media scene-occ reveal"
            style="--group:url('sol-occupancy.png')">
         <div class="sfeat__phones">
-          <div class="sphone"><div class="ph">occ-1.png</div></div>
-          <div class="sphone"><div class="ph">occ-2.png</div></div>
-          <div class="sphone"><div class="ph">occ-3.png</div></div>
+          <div class="sphone"><img src="occ-1.png" alt="Home screen with live occupancy map"></div>
+          <div class="sphone"><img src="occ-2.png" alt="Reservation confirmed screen"></div>
+          <div class="sphone"><img src="occ-3.png" alt="Expired reservation with rebook prompt"></div>
         </div>
       </div>
       <div class="sfeat__text reveal">
