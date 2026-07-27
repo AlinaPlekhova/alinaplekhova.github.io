@@ -171,16 +171,16 @@
 
 <div class="site-header">
   <div class="site-header__inner">
-    <a class="brand" href="index.html">Alina Plekhova Portfolio</a>
+    <a class="brand" href="../index.html">Alina Plekhova Portfolio</a>
     <nav class="site-nav" aria-label="Primary">
       <div class="dropdown" id="projDropdown">
         <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('projDropdown').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('projDropdown').classList.contains('open'))">
           Projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="dropdown-menu" role="menu">
-          <a href="urbanpass/urbanpass.html" role="menuitem">UrbanPass<span class="sub">Smart urban parking</span></a>
+          <a href="../urbanpass/urbanpass.html" role="menuitem">UrbanPass<span class="sub">Smart urban parking</span></a>
           <a href="agentic-audit.html" role="menuitem">Agentic Design-System Audit<span class="sub">AI-native design system migration</span></a>
-          <a href="index.html#projects" role="menuitem">All projects →</a>
+          <a href="../index.html#projects" role="menuitem">All projects →</a>
         </div>
       </div>
     </nav>
@@ -188,7 +188,7 @@
 </div>
 
 <div class="wrap">
-<a class="back" href="index.html">← Back to work</a>
+<a class="back" href="../index.html">← Back to work</a>
 <header class="hero">
   <span class="eyebrow">Case study · AI-native design systems</span>
   <h1>Anatomy of an agentic<br>design-system audit</h1>
@@ -367,12 +367,12 @@
   rebind nodes. Scripts were written for a specific question and run on the spot.</p>
 
     <div class="pair">
-    <figure><span class="lbl">before</span><img src="images/node-before.png" alt="Node bound to a style plus a raw hex DD3B3E at 25%"></figure>
-    <figure><span class="lbl after">after</span><img src="images/node-after.png" alt="Same node bound to the feedback-error token and its surface variant"></figure>
+    <figure><span class="lbl">before</span><img src="node-before.png" alt="Node bound to a style plus a raw hex DD3B3E at 25%"></figure>
+    <figure><span class="lbl after">after</span><img src="node-after.png" alt="Same node bound to the feedback-error token and its surface variant"></figure>
   </div>
   <figcaption style="margin-top:10px">One node, before and after. The fill goes from a raw <span class="mono">DD3B3E</span> at 25% to the <span class="mono">feedback-error</span> token — and its translucent backing to a dedicated <span class="mono">-surface</span> token. Same pixels, declared by role. Multiplied by 2,218.</figcaption>
 
-    <figure><video src="images/variables-before.mp4" autoplay muted loop playsinline aria-label="Figma Variables panel before: a single Tokens collection with one variable">
+    <figure><video src="variables-before.mp4" autoplay muted loop playsinline aria-label="Figma Variables panel before: a single Tokens collection with one variable">
     <figcaption>What the file started with: one variable collection, holding a stray <span class="mono">Interactive = 0</span>. The colour system had none.</figcaption></figure>
 
   <p>There were almost no variables in the file: a couple of stray ones, while the whole system
@@ -408,7 +408,7 @@
     <div class="ba-col"><span class="ba-lbl ba-bad">after migration</span>
       <div class="badge" style="background:#DD3B3E;color:#fff">Breached</div></div>
   </div>
-  <figure><img src="images/badge.png" alt="Badge component: Success, Error, Default, Processing, Warning">
+  <figure><img src="badge.png" alt="Badge component: Success, Error, Default, Processing, Warning">
     <figcaption>The badge component from the file. These translucent backings are what the migration flattened — the colour survived, the 20% opacity didn't.</figcaption></figure>
 
   <p>It <strong>invented strokes that never existed</strong>, giving a green icon a red outline,
@@ -431,10 +431,10 @@
 <section>
   <span class="eyebrow">05 · The architecture</span>
   <h2>Global → alias → component</h2>
-    <figure class="bare"><object type="image/svg+xml" data="images/token-tiers.svg" aria-label="Three-tier token architecture"></object>
+    <figure class="bare"><object type="image/svg+xml" data="token-tiers.svg" aria-label="Three-tier token architecture"></object>
     <figcaption>Global → alias → component. Change a value on the left; every role and component that references it follows.</figcaption></figure>
 
-  <figure><img src="images/buttons.png" alt="Button matrix across states">
+  <figure><img src="buttons.png" alt="Button matrix across states">
     <figcaption>Component tokens live only where a component needs its own override point — here, the buttons. Every variant × every state, bound to a token.</figcaption></figure>
 
   <p>Seven neutral values replaced twenty-three styles and a scatter of hardcodes. The platform is
@@ -446,7 +446,7 @@
   <div class="rampcap" id="cap"></div>
   <div class="aliases" id="aliases"></div>
 
-    <figure><video src="images/variables-alias.mp4" autoplay muted loop playsinline aria-label="Figma Variables panel: alias roles referencing global neutrals">
+    <figure><video src="variables-alias.mp4" autoplay muted loop playsinline aria-label="Figma Variables panel: alias roles referencing global neutrals">
     <figcaption>The alias layer in Figma. Every role — <span class="mono">text-secondary</span>, <span class="mono">icon-muted</span>, <span class="mono">bg-base</span> — points at a global neutral rather than holding a value. Collections on the left: Global 12, Alias 28, Component 7. This is the whole architecture in one panel.</figcaption></figure>
 
   <p style="margin-top:28px">The accessibility fix came from inside the file. The official muted
@@ -454,7 +454,7 @@
   AA at 7:1. The working design had already found the right value. The audit legalised it and
   retired the official one.</p>
 
-  <figure><img src="images/message-status.png" alt="Status messages: success, error, warning, info, each with a gradient backing">
+  <figure><img src="message-status.png" alt="Status messages: success, error, warning, info, each with a gradient backing">
     <figcaption>Five semantic roles on four values — success, error, warning, and the info blue the agent never saw. The gradient backings are a component pattern derived from these tokens.</figcaption></figure>
 
   <div class="pull good">A value can arrive later.
