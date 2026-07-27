@@ -132,6 +132,7 @@
 
   figure{margin:30px 0}
   figure img,figure video,figure svg,figure object{width:100%;height:auto;display:block;border:1px solid var(--border-subtle);border-radius:16px;background:rgba(255,255,255,.03)}
+  figure iframe{width:100%;height:720px;display:block;border:1px solid var(--border-subtle);border-radius:16px;background:rgba(255,255,255,.03)}
   figure.bare img,figure.bare object{border:none;background:none}
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .pair figure{margin:0}
@@ -252,8 +253,8 @@
   <p>It walked the component library — 6,000 nodes. The output was a table of twelve findings,
   prioritised from critical to cosmetic. These were the most telling.</p>
 
-  <figure><div class="shot-todo">[ screenshot: findings table from the audit workbook — 12 rows, prioritised ]</div>
-    <figcaption>The audit output: twelve findings, ranked critical to cosmetic. The five below are the most telling.</figcaption></figure>
+  <figure><iframe src="../workbook.html" title="Interactive audit workbook — findings, migration, neutral scale, decision journal" loading="lazy"></iframe>
+    <figcaption>The full audit workbook, interactive. Twelve findings, ranked critical to cosmetic. The five below are the most telling.</figcaption></figure>
 
   <ul class="find">
     <li><b>Three sources of white.</b> A local style (724 uses), a twin from a remote library (839), and 74 hardcoded instances. All #FFFFFF. None connected.
