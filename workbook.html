@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Workbook — interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&family=Golos+Text:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --neutral-0:#FFFFFF; --neutral-200:#B8BABD; --neutral-400:#999CA2;
+    --neutral-600:#757A83; --neutral-700:#46484B; --neutral-900:#0F1012; --neutral-1000:#060607;
+    --red:#DD3B3E; --amber:#E58C35; --yellow:#E5C453; --green:#02BD7E;
+    --text-primary:var(--neutral-0); --text-secondary:var(--neutral-200); --text-muted:var(--neutral-400);
+    --surface:rgba(255,255,255,.04); --surface-2:rgba(255,255,255,.07);
+    --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.2);
+    --bg:var(--neutral-900); --mono:'Anonymous Pro',monospace; --ui:'Golos Text',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text-secondary);font-family:var(--ui);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:32px 20px}
+  .wrap{max-width:1000px;margin:0 auto}
+  ::selection{background:var(--neutral-0);color:var(--neutral-1000)}
+  h1{font-family:var(--mono);font-size:22px;color:var(--text-primary);font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+  .sub{font-size:14px;color:var(--text-muted);margin-bottom:26px}
+  .sub b{color:var(--text-secondary);font-weight:500}
+
+  .tabs{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--border);margin-bottom:0}
+  .tab{font-family:var(--mono);font-size:13px;padding:10px 16px;cursor:pointer;background:transparent;
+    color:var(--text-muted);border:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tab:hover{color:var(--text-secondary)}
+  .tab.on{color:var(--text-primary);border-bottom-color:var(--neutral-0)}
+  :focus-visible{outline:2px solid var(--neutral-0);outline-offset:2px}
+
+  .panel{display:none;padding-top:24px}
+  .panel.on{display:block}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);
+    text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-strong);vertical-align:bottom;font-weight:400}
+  td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:hover td{background:var(--surface)}
+  td.mono,th.mono{font-family:var(--mono)}
+  .id{font-family:var(--mono);color:var(--text-muted);white-space:nowrap}
+  .pri{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:2px;white-space:nowrap;display:inline-block}
+  .pri.critical{background:rgba(221,59,62,.18);color:#F08a8c}
+  .pri.high{background:rgba(229,140,53,.18);
+  .pri.high{background:rgba(229,140,53,.18);color:#E9A968}
+  .pri.medium{background:rgba(229,196,83,.16);color:#E5C453}
+  .pri.cosmetic{background:rgba(2,189,126,.16);color:#4FCE9F}
+  .find{color:var(--text-primary);font-weight:500}
+  .sw{display:inline-block;width:16px;height:16px;border-radius:2px;border:1px solid var(--border-strong);vertical-align:-3px;margin-right:8px}
+  .big{font-family:var(--mono);font-size:15px;color:var(--text-primary)}
+  .metrics-note{font-size:12.5px;color:var(--text-muted);margin-top:18px;font-family:var(--mono)}
+  .foot{margin-top:26px;font-size:12.5px;color:var(--text-muted)}
+  @media(max-width:640px){
+    table{font-size:12.5px} td,th{padding:8px 8px}
+    .hide-sm{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Audit workbook</h1>
+  <p class="sub">Colour layer of the component library · <b>6,000-node sample</b> · a crypto trading platform. Switch tabs to explore.</p>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <!-- FINDINGS -->
+  <div class="panel on" id="p-findings" role="tabpanel">
+    <table>
+      <thead><tr><th>ID</th><th>Severity</th><th>Finding</th><th class="hide-sm">Detail</th><th class="hide-sm">Recommendation</th></tr></thead>
+      <tbody id="findings"></tbody>
+    </table>
+  </div>
+
+  <!-- MIGRATION -->
+  <div class="panel" id="p-migration" role="tabpanel">
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th><th class="hide-sm">Note</th></tr></thead>
+      <tbody id="migration"></tbody>
+    </table>
+    <p class="metrics-note">Zero errors reported. Three regressions found by a human anyway. That gap is the case study.</p>
+  </div>
+
+  <!-- SCALE -->
+  <div class="panel" id="p-scale" role="tabpanel">
+    <table>
+      <thead><tr><th>Token</th><th>Value</th><th class="hide-sm">Absorbed from</th><th>Contrast</th><th>Role</th></tr></thead>
+      <tbody id="scale"></tbody>
+    </table>
+    <p class="metrics-note">All on one cool axis (hue 220°). Numbers ascend with darkness. Every hex exists exactly once.</p>
+  </div>
+
+  <!-- DECISIONS -->
+  <div class="panel" id="p-decisions" role="tabpanel">
+    <table>
+      <thead><tr><th>ID</th><th>Question</th><th>Decision</th></tr></thead>
+      <tbody id="decisions"></tbody>
+    </table>
+    <p class="metrics-note">Nine decisions the agent surfaced and refused to make. Each one needs someone who knows the intent.</p>
+  </div>
+
+  <p class="foot">Project name withheld. All figures reproducible from this workbook.</p>
+</div>
+
+<script>
+  var TABS=[['findings','Findings'],['migration','Migration'],['scale','Neutral scale'],['decisions','Decision journal']];
+  var tabsEl=document.getElementById('tabs');
+  TABS.forEach(function(t,i){
+    var b=document.createElement('button'); b.className='tab'+(i===0?' on':''); b.textContent=t[1];
+    b.setAttribute('role','tab'); b.onclick=function(){show(t[0],b)};
+    tabsEl.appendChild(b);
+  });
+  function show(id,btn){
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+    document.getElementById('p-'+id).classList.add('on');
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+    btn.classList.add('on');
+  }
+
+  var findings=[
+    ['F-01','critical','No token architecture','A local "Tokens" collection held 2 variables. The entire colour system lived in 23 styles plus hardcodes.','Build a three-tier structure: global → alias → component.'],
+    ['F-02','critical','Two sources of truth for white','A remote "Neutral/White" (839 uses) duplicated a local "White" (724). Plus 74 hardcoded #FFFFFF.','Detach from the remote library; collapse to one neutral-0.'],
+    ['F-03','critical','431 hardcoded colours','13% of all fills, incl. 122 copies of a red that already had a style.','Auto-rebind exact matches; queue the ambiguous.'],
+    ['F-04','high','Duplicate colour clusters','4 near-identical reds, 2 blues, 2 greens. Trading vs feedback meaning undocumented.','Pick a canonical value per family; merge the rest.'],
+    ['F-05','high','Four type families in one file','Anonymous Pro, Manrope, Inter, Golos Text — plus 3 naming conventions.','Standardise to 1–2 families; one naming scheme.'],
+    ['F-06','high','Line-height bound to a blur radius','Two text styles used a remote variable "Scroll Edge Effect Blur Radius" as line-height. Worked only because both equalled 10.','Rebind to a real line-height token.'],
+    ['F-07','critical','Muted text fails WCAG','The official muted grey (#494848) measured 2:1 — below minimum at any size. 123 text nodes.','Adopt an in-file 7:1 grey (#9A9CA1); retire the official one.'],
+    ['F-08','medium','Inverted neutral scale','Legacy naming ran light-to-dark backwards (Gray 50 = darkest).','Renumber so higher = darker.'],
+    ['F-09','medium','Mixed grey hue axes','Greys sat on three hue axes — one cool, one neutral, rest warm. Off-axis tones read as borrowed.','Regenerate on one cool axis (220°), preserving contrast.'],
+    ['F-10','medium','Six unused accent styles','Yellow, teal, cyan, pink, brown — defined, referenced by nothing.','Delete after confirming zero usage.'],
+    ['F-11','medium','Service-layer names','Components named "Frame 1000010369"; variant props "Property 1=Variant8".','Rename by role and state before agentic work.'],
+    ['F-12','cosmetic','Effect styles off-convention','Three effect styles outside any naming scheme.','Fold into a named elevation set.']
+  ];
+  var fb=document.getElementById('findings');
+  findings.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="id">'+r[0]+'</td>'+
+      '<td><span class="pri '+r[1]+'">'+r[1]+'</span></td>'+
+      '<td class="find">'+r[2]+'</td>'+
+      '<td class="hide-sm">'+r[3]+'</td>'+
+      '<td class="hide-sm">'+r[4]+'</td>';
+    fb.appendChild(tr);
+  });
+
+  var migration=[
+    ['Bindings migrated to tokens','2,218','Clean run on a fresh copy, single pass, transparency preserved'],
+    ['Execution errors','0','By the script\u2019s own criteria'],
+    ['Regressions found by a human','3','Lost transparency · phantom strokes · missing blue family'],
+    ['Human-gated decisions','9','Each with a question and a recorded answer'],
+    ['Left in queue','222','69 crypto brand colours (untouched), 33 strokes, 14 Purple, tail'],
+    ['Sample size','6,000 nodes','Component library']
+  ];
+  var mb=document.getElementById('migration');
+  migration.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+r[0]+'</td><td class="big">'+r[1]+'</td><td class="hide-sm">'+r[2]+'</td>';
+    mb.appendChild(tr);
+  });
+
+  var scale=[
+    ['neutral-0','#FFFFFF','White + remote twin + 74 hardcodes','19:1','The only white'],
+    ['neutral-200','#B8BABD','Grey 200, Grey 150 hardcodes','9.8:1','Secondary text'],
+    ['neutral-400','#999CA2','Promoted hardcode (29×)','7:1','Muted text — AA fix'],
+    ['neutral-600','#757A83','#7C7C7C, #6A6A6A','4.4:1','Hover indicator'],
+    ['neutral-700','#46484B','Grey 100','2:1','Non-text only'],
+    ['neutral-900','#0F1012','5 dark hardcodes','1:1','The single background'],
+    ['neutral-1000','#060607','#000000','—','Text on light / accent']
+  ];
+  var sb=document.getElementById('scale');
+  scale.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="mono"><span class="sw" style="background:'+r[1]+'"></span>'+r[0]+'</td>'+
+      '<td class="mono">'+r[1]+'</td>'+
+      '<td class="hide-sm">'+r[2]+'</td>'+
+      '<td class="mono">'+r[3]+'</td>'+
+      '<td>'+r[4]+'</td>';
+    sb.appendChild(tr);
+  });
+
+  var decisions=[
+    ['D-01','Which light grey survives?','#B8BABD; #D9D9D9 and #E1E1E1 merged into it for an even contrast hierarchy.'],
+    ['D-02','What role does the mid-grey take?','neutral-600 assigned to the hover indicator.'],
+    ['D-03','The accent colour?','Deferred by the business (branding in parallel). Held as one empty reference.'],
+    ['D-04','Is the dark pressed-state a bug?','No — a full monochrome inversion, 9.6:1. Verified, kept, tokenised.'],
+    ['D-05','How to express disabled?','50% opacity on the whole component, one token, 33 variants.'],
+    ['D-06','Hover indicators at 2:1?','Lightened to neutral-600 (4.4:1) — which also gave an orphaned global its role.'],
+    ['D-07','How are outline icons coloured?','Via icon tokens on the stroke; no separate stroke-colour tokens.'],
+    ['D-08','Dark icons — recolour the pixels?','No — bound to icon-muted, pixels untouched.'],
+    ['D-09','Is "text line" a skeleton placeholder?','Withdrawn: a visual check showed a glyph. Layer names are hypotheses.']
+  ];
+  var db=document.getElementById('decisions');
+  decisions.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="id">'+r[0]+'</td><td class="find">'+r[1]+'</td><td>'+r[2]+'</td>';
+    db.appendChild(tr);
+  });
+</script>
+</body>
+</html>
